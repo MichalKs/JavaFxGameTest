@@ -6,7 +6,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -57,8 +61,27 @@ public class JavaFxGameTest extends Application {
                 });
         root.getChildren().add(slider);
         blueLine.layoutXProperty().bind(slider.valueProperty());
+
+        Rectangle rect = new Rectangle(300, 200, 200, 100);
+        rect.setFill(Color.BISQUE);
+        rect.setStroke(Color.BLACK);
+        rect.setStrokeWidth(15);
+        LinearGradient lg = new LinearGradient(
+                0,
+                0,
+                0,
+                1,
+                true,
+                CycleMethod.NO_CYCLE,
+                new Stop(0.1f, Color.rgb(0, 200, 255, 0.8)),
+                new Stop(0.9f, Color.rgb(0,0,0,0.8)));
+        rect.setFill(lg);
+
+        root.getChildren().add(rect);
+
         primaryStage.setScene(scene);
         primaryStage.show();
+
 
     }
 
