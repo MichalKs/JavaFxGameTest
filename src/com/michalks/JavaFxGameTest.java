@@ -4,7 +4,9 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Skin;
 import javafx.scene.control.Slider;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -12,6 +14,7 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -27,16 +30,27 @@ public class JavaFxGameTest extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        System.out.println("Font families");
+        Font.getFamilies().stream().forEach(i -> System.out.println(i));
+        System.out.println("Font names");
+        Font.getFontNames().stream().forEach(i -> System.out.println(i));
+        Font f = Font.font("Ubuntu Mono", 30);
+
         primaryStage.setTitle("JavaFxGameTest");
 
         Group root = new Group();
         Scene scene = new Scene(root, 500, 320, Color.CADETBLUE);
 
         Button helloButton = new Button("Hello world");
-        helloButton.setLayoutX(100);
-        helloButton.setLayoutY(100);
-        helloButton.setOnAction(event -> {
+        helloButton.setFont(f);
+        helloButton.setTextFill(Color.CRIMSON);
+        helloButton.setLayoutX(50);
+        helloButton.setLayoutY(70);
+        helloButton.setOnMousePressed(event -> {
             System.out.println("Hello world!");
+        });
+        helloButton.setOnMouseEntered(event -> {
+            System.out.println("Mouse entered");
         });
         root.getChildren().add(helloButton);
 
@@ -47,7 +61,16 @@ public class JavaFxGameTest extends Application {
 
         root.getChildren().add(blueLine);
 
+
+
         Text helloText = new Text("Hello world");
+        DropShadow ds = new DropShadow();
+        ds.setOffsetX(5.0f);
+        ds.setOffsetY(5.0f);
+        ds.setColor(Color.rgb(50,50,50,.8));
+        helloText.setEffect(ds);
+        helloText.setFont(f);
+        helloText.setFill(Color.CORAL);
         helloText.setLayoutX(50);
         helloText.setLayoutY(250);
         root.getChildren().add(helloText);
@@ -73,8 +96,8 @@ public class JavaFxGameTest extends Application {
                 1,
                 true,
                 CycleMethod.NO_CYCLE,
-                new Stop(0.1f, Color.rgb(0, 200, 255, 0.8)),
-                new Stop(0.9f, Color.rgb(0,0,0,0.8)));
+                new Stop(0.1f, Color.rgb(0, 200, 255, 0.4)),
+                new Stop(0.9f, Color.rgb(0,0,0,0.4)));
         rect.setFill(lg);
 
         root.getChildren().add(rect);
