@@ -3,10 +3,9 @@ package com.michalks;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Skin;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -17,6 +16,7 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * Created by mik on 06.07.16.
@@ -39,14 +39,14 @@ public class JavaFxGameTest extends Application {
         primaryStage.setTitle("JavaFxGameTest");
 
         Group root = new Group();
-        Scene scene = new Scene(root, 500, 320, Color.CADETBLUE);
+        Scene scene = new Scene(root, 800, 600, Color.CADETBLUE);
 
         Button helloButton = new Button("Hello world");
         helloButton.setFont(f);
         helloButton.setTextFill(Color.CRIMSON);
         helloButton.setLayoutX(50);
         helloButton.setLayoutY(70);
-        helloButton.setOnMousePressed(event -> {
+        helloButton.setOnAction(event -> {
             System.out.println("Hello world!");
         });
         helloButton.setOnMouseEntered(event -> {
@@ -75,6 +75,17 @@ public class JavaFxGameTest extends Application {
         helloText.setLayoutY(250);
         root.getChildren().add(helloText);
 
+        Text text2 = new Text("Hello world");
+        Reflection r = new Reflection();
+        r.setFraction(0.9f);
+        r.setTopOffset(10);
+        text2.setEffect(r);
+        text2.setFont(f);
+        text2.setFill(Color.HONEYDEW);
+        text2.setLayoutX(50);
+        text2.setLayoutY(290);
+        root.getChildren().add(text2);
+
         Slider slider = new Slider(0, 100, 0);
         slider.setLayoutX(50);
         slider.setLayoutY(150);
@@ -101,6 +112,20 @@ public class JavaFxGameTest extends Application {
         rect.setFill(lg);
 
         root.getChildren().add(rect);
+
+        TextField textField = new TextField();
+        textField.setLayoutX(50);
+        textField.setLayoutY(340);
+
+        text2.textProperty().bind(textField.textProperty());
+        text2.setSmooth(true);
+        root.getChildren().add(textField);
+
+
+        PasswordField passwordField = new PasswordField();
+        passwordField.setLayoutX(50);
+        passwordField.setLayoutY(400);
+        root.getChildren().add(passwordField);
 
         primaryStage.setScene(scene);
         primaryStage.show();
